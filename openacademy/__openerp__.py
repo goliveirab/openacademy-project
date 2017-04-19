@@ -9,6 +9,8 @@
             - training courses
             - training sessions
             - attendees registration
+
+
     """,
 
     'author': "Your Company",
