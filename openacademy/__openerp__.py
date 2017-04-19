@@ -4,14 +4,12 @@
 
     'summary': """Manage trainings""",
 
-    'description': """
-        Open Academy module for managing trainings:
-            - training courses
-            - training sessions
-            - attendees registration
-
-
-    """,
+    #'description': """
+    #    Open Academy module for managing trainings:
+    #        - training courses
+    #        - training sessions
+    #        - attendees registration
+    #""",
 
     'author': "Your Company",
     'website': "http://www.yourcompany.com",
