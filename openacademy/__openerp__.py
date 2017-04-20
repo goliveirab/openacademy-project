@@ -30,7 +30,7 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        #'demo.xml',
+        'demo/demo.xml',
     ],
 
     'installable': True
