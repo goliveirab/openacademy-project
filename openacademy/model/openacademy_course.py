@@ -18,3 +18,6 @@ class Course(models.Model):
                                       ondelete='set null',
                                       string='Responsible',
                                       index=True)
+    session_ids    = fields.One2many('openacademy.session',
+                                     'course_id',
+                                      string="Sessions") 
