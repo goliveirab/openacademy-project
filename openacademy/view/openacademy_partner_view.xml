@@ -13,6 +13,9 @@
                             <field name="instructor"/>
                             <field name="session_ids"/>
                         </group>
+                        <group>
+                            <field name="instructed_session_id"/>
+                        </group>
                     </page>
                 </notebook>
             </field>
