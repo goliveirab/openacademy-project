@@ -36,6 +36,8 @@ class Session(models.Model):
                            compute='_get_end_date', inverse='_set_end_date')
 
     active = fields.Boolean(default=True)
+    hours = fields.Float(string="Duration in hours",
+                         compute="_get_hours", inverse="_set_hours")
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
@@ -103,4 +105,13 @@ class Session(models.Model):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
                 raise exceptions.ValidationError("A session's instructor" +
-                                                 " can't be an attendee")
+                                                 " can't be an attenidee")
+
+    @api.depends('duration')
+    def _get_hours(self):
+        for r in self:
+            r.hours = r.duration * 24
+
+    def _set_hours(self):
+        for r in self:
+            r.duration = r.hours / 24
