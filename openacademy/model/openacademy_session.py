@@ -36,8 +36,12 @@ class Session(models.Model):
                            compute='_get_end_date', inverse='_set_end_date')
 
     active = fields.Boolean(default=True)
+    color = fields.Integer()
     hours = fields.Float(string="Duration in hours",
                          compute="_get_hours", inverse="_set_hours")
+    attendees_count = fields.Integer(string="Attendees count",
+                                     compute='_get_attendees_count',
+                                     store=True)
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
@@ -95,6 +99,20 @@ class Session(models.Model):
             end_date = fields.Datetime.from_string(r.end_date)
             r.duration = (end_date - start_date).days + 1
 
+    @api.depends('duration')
+    def _get_hours(self):
+        for r in self:
+            r.hours = r.duration * 24
+
+    def _set_hours(self):
+        for r in self:
+            r.duration = r.hours / 24
+
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+        for r in self:
+            r.attendees_count = len(r.attendee_ids)
+
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
         '''
@@ -106,12 +124,3 @@ class Session(models.Model):
             if r.instructor_id and r.instructor_id in r.attendee_ids:
                 raise exceptions.ValidationError("A session's instructor" +
                                                  " can't be an attenidee")
-
-    @api.depends('duration')
-    def _get_hours(self):
-        for r in self:
-            r.hours = r.duration * 24
-
-    def _set_hours(self):
-        for r in self:
-            r.duration = r.hours / 24

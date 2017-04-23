@@ -17,6 +17,7 @@
                             <field name="start_date"/>
                             <field name="end_date"/>
                             <field name="duration"/>
+                            <field name="hours"/>
                             <field name="seats"/>
                             <field name="taken_seats" widget="progressbar"/>
                         </group>
@@ -47,7 +48,7 @@
             <field name="arch" type="xml">
                 <calendar string="Session Calendar" date_start="start_date"
                           date_stop="end_date" color="instructor_id">
-                    <field name="name"/>
+                        <field name="name"/>
                 </calendar>
              </field>
          </record>
@@ -57,10 +58,21 @@
              <field name="model">openacademy.session</field>
              <field name="arch" type="xml">
                  <gantt string="Session Gantt" color="course_id"
-                        date_start="start_date" date_delay="hours"
-                        default_group_by="instructor_id">
-                        <field name="name" />
+                     date_start="start_date" date_delay="hours"
+                     default_group_by="instructor_id">
+                    <field name="name" />
                 </gantt>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="openacademy_session_graph_view">
+            <field name="name">openacademy.session.graph</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Participations by Courses">
+                    <field name="course_id"/>
+                    <field name="attendees_count" type="measure"/>
+                </graph>
             </field>
         </record>
 
@@ -68,7 +80,7 @@
             <field name="name">Sessions</field>
             <field name="res_model">openacademy.session</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar,gantt</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph</field>
         </record>
 
         <menuitem id="session_menu" name="Sessions"
