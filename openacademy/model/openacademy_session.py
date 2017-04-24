@@ -1,6 +1,6 @@
 # --*-- utf-8 --*--
 from datetime import timedelta
-from openerp import api, exceptions, fields, models
+from openerp import api, exceptions, fields, models, _
 
 
 '''
@@ -81,15 +81,15 @@ class Session(models.Model):
         if self.seats < 0:
             return {
                 'warning': {
-                    'title': 'Incorrect seats value',
-                    'message': 'Available seats may not be negative',
+                    'title': _('Incorrect seats value'),
+                    'message': _('Available seats may not be negative'),
                 },
             }
         if self.seats < len(self.attendee_ids):
             return {
                 'warning': {
-                    'title': 'Too many attenddes',
-                    'message': 'Increase seats or remove excess attendees',
+                    'title': _('Too many attenddes'),
+                    'message': _('Increase seats or remove excess attendees'),
                 },
             }
 
@@ -139,5 +139,5 @@ class Session(models.Model):
 
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
-                raise exceptions.ValidationError("A session's instructor" +
-                                                 " can't be an attenidee")
+                raise exceptions.ValidationError(_("A session's instructor" +
+                                                 " can't be an attenidee"))
