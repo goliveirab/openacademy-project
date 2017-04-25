@@ -37,20 +37,20 @@ class GlobalTestOpenAcademySession(TransactionCase):
         Check workflow works fine
         '''
         session_test = self.session.create({
-                'name': 'Session test 1',
-                'seats': 50,
-                'instructor_id': self.partner_vauxoo.id,
-                'attendee_ids': [(6, 0, [self.partner_attendee.id])],
-                'course_id': self.course.id,
-            })
+            'name': 'Session test 1',
+            'seats': 50,
+            'instructor_id': self.partner_vauxoo.id,
+            'attendee_ids': [(6, 0, [self.partner_attendee.id])],
+            'course_id': self.course.id,
+        })
         # Check initial state
         self.assertEqual(session_test.state, 'draft', 'Initial state'
-            ' should be Draft')
+                         ' should be Draft')
         # Change next state and check it
         session_test.signal_workflow('button_confirm')
-        self.assertEqual(session_test.state, 'confirmed', 'Signal confirm do not' 
-            ' work')
+        self.assertEqual(session_test.state, 'confirmed', 'Signal confirm'
+                         ' do not work')
         # Change next state and check it
         session_test.signal_workflow('button_done')
         self.assertEqual(session_test.state, 'done', 'Signal done do not'
-            ' work')
+                         ' work')

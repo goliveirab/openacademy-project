@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from openerp import fields, models
-
 '''
 openacademy Partner module
 '''
+
+from openerp import fields, models
 
 
 class Partner(models.Model):

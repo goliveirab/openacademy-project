@@ -1,8 +1,8 @@
-from openerp import api, models, fields, _
-
+# -*- coding: utf-8 -*-
 '''
 Module: To create Course model
 '''
+from openerp import api, models, fields, _
 
 
 class Course(models.Model):
@@ -30,7 +30,7 @@ class Course(models.Model):
         default = dict(default or {})
 
         copied_count = self.search_count(
-            [('name', '=like', _(u'Copy of {}%').format(self.name))])    
+            [('name', '=like', _(u'Copy of {}%').format(self.name))])
         if not copied_count:
             new_name = _(u'Copy of {}').format(self.name)
         else:

@@ -1,11 +1,9 @@
 # --*-- utf-8 --*--
-from datetime import timedelta
-from openerp import api, exceptions, fields, models, _
-
-
 '''
 Create session model
 '''
+from datetime import timedelta
+from openerp import api, exceptions, fields, models, _
 
 
 class Session(models.Model):
@@ -46,7 +44,7 @@ class Session(models.Model):
         ('draft', "Draft"),
         ('confirmed', "Confirmed"),
         ('done', "Done"),
-    ]) # , default='draft')
+    ])
 
     @api.multi
     def action_draft(self):
