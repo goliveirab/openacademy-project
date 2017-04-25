@@ -26,11 +26,6 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         })
         return course_id
 
-    '''
-    Test method
-    begin with: def test_*(self):
-    executed by number
-    '''
     @mute_logger('openerp.sql_db')
     def test_10_course_same_name_and_description(self):
         '''
