@@ -116,12 +116,14 @@ class Session(models.Model):
 
     @api.depends('duration')
     def _get_hours(self):
+        # Get duration hours acording to working hours
         for r in self:
-            r.hours = r.duration * 24
+            r.hours = r.duration * 8
 
     def _set_hours(self):
+        # Set duration hours acording to working hours
         for r in self:
-            r.duration = r.hours / 24
+            r.duration = r.hours / 8
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
