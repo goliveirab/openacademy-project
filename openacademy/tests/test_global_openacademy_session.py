@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
+from psycopg2 import IntegrityError
 from openerp.tests.common import TransactionCase
 from openerp.exceptions import ValidationError
+from openerp.tools import mute_logger
 
 
 class GlobalTestOpenAcademySession(TransactionCase):
@@ -54,3 +56,29 @@ class GlobalTestOpenAcademySession(TransactionCase):
         session_test.signal_workflow('button_done')
         self.assertEqual(session_test.state, 'done', 'Signal done do not'
                          ' work')
+
+    @mute_logger('openerp.sql_db')
+    def test_30_two_sessions_with_same_name(self):
+        '''
+        Create two sessions with the same name
+        Raise name unique constraint
+        '''
+        self.session.create({
+            'name': 'Session test 1',
+            'seats': 50,
+            'instructor_id': self.partner_vauxoo.id,
+            'attendee_ids': [(6, 0, [self.partner_attendee.id])],
+            'course_id': self.course.id,
+        })
+        with self.assertRaisesRegexp(
+            IntegrityError,
+            'duplicate key value violates unique'
+            ' constraint "openacademy_session_name_session_unique'
+        ):
+            self.session.create({
+                'name': 'Session test 1',
+                'seats': 50,
+                'instructor_id': self.partner_vauxoo.id,
+                'attendee_ids': [(6, 0, [self.partner_attendee.id])],
+                'course_id': self.course.id,
+            })
