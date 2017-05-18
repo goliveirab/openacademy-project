@@ -138,4 +138,27 @@ class Session(models.Model):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
                 raise exceptions.ValidationError(_("A session's instructor" +
-                                                 " can't be an attenidee"))
+                                                 " can't be an attendee"))
+
+    @api.multi
+    def copy(self, default=None):
+        '''
+        Handle sql constraint: unique session name
+        '''
+        default = dict(default or {})
+
+        copied_count = self.search_count(
+            [('name', '=like', _(u'Copy of {}%').format(self.name))])
+        if not copied_count:
+            new_name = _(u'Copy of {}').format(self.name)
+        else:
+            new_name = _(u'Copy of {} ({})').format(self.name, copied_count)
+
+        default['name'] = new_name
+        return super(Session, self).copy(default)
+
+    _sql_constraints = [
+        ('name_session_unique',
+         'UNIQUE(name)',
+         'The session name must be unique'),
+    ]
