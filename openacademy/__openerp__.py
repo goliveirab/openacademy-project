@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'board'],
+    'depends': ['base', 'board', 'account_asset'],
 
     # always loaded
     'data': [
@@ -31,6 +31,7 @@
         'workflow/openacademy_session_workflow.xml',
         'report/openacademy_session_report.xml',
         'view/openacademy_session_board.xml',
+        'view/openacademy_account_asset_view.xml',
         # 'security/ir.model.access.csv',
         # 'templates.xml',
     ],

@@ -45,6 +45,7 @@ class Session(models.Model):
         ('confirmed', "Confirmed"),
         ('done', "Done"),
     ])
+    material_ids = fields.Many2many('account.asset.asset', string="Materials")
 
     @api.multi
     def action_draft(self):

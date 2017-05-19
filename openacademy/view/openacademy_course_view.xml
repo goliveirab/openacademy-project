@@ -16,9 +16,6 @@
                             <page string="Description">
                                 <field name="description"/>
                             </page>
-                            <page string="About">
-                                This is an example of notebooks
-                            </page>
                             <page string="Sessions">
                                 <field name="session_ids">
                                     <tree string="Registered sessions" editable="bottom">

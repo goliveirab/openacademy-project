@@ -33,8 +33,24 @@
                             <field name="seats"/>
                             <field name="taken_seats" widget="progressbar"/>
                         </group>
-                        <label for="attendee_ids"/>
-                        <field name="attendee_ids"/>
+                   
+                        <notebook>
+                            <page string="Attendees">
+                                <field name="attendee_ids">
+                                    <tree string="Registered Attendees" editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Materials">
+                                <field name="material_ids">
+                                    <tree string="Session Materials" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                           </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -157,6 +173,7 @@
                     <group>
                         <field name="session_ids"/>
                         <field name="attendee_ids"/>
+                        <!--<field name="material_ids"/>-->
                     </group>
                     <footer>
                         <button name="subscribe" type="object"
